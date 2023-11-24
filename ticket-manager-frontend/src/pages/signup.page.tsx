@@ -44,7 +44,7 @@ export default function SignUp() {
         name: `${values.firstName} ${values.lastName}`,
         password: values.password,
       };
-      const response = await fetch("http://localhost:3333/users", {
+      await fetch("http://localhost:3333/users", {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "no-cors",
@@ -52,9 +52,7 @@ export default function SignUp() {
         },
         body: JSON.stringify(body),
       });
-
-      console.log(response, "responseresponse");
-      // TODO redirect page sucess
+      window.location.replace("http://localhost:3000/success");
     } catch (error) {
       console.log("dale");
     }

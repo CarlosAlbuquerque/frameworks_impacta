@@ -71,7 +71,7 @@ const Header = () => {
         <Box>
           <Button
             component={Link}
-            to={"/about"}
+            to={"/events"}
             variant="contained"
             sx={{
               mr: 2,
@@ -95,7 +95,7 @@ const Header = () => {
           </Button>
           <Button
             component={Link}
-            to={"/about"}
+            to={"/about-us"}
             variant="outlined"
             sx={{
               px: 4,

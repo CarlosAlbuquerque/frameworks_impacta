@@ -28,7 +28,6 @@ const HeaderMenu: React.FC = () => {
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
             {" "}
-            {/* Adicionado Box */}
             <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
               <Typography variant="h6" component="div">
                 Ticket Manager
@@ -49,9 +48,19 @@ const HeaderMenu: React.FC = () => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleMenuClose}>Eventos</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Sobre Nós</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Contato</MenuItem>
+            <MenuItem component="a" href="/events" onClick={handleMenuClose}>
+              Eventos
+            </MenuItem>
+            <MenuItem component="a" href="/about-us" onClick={handleMenuClose}>
+              Sobre Nós
+            </MenuItem>
+            <MenuItem
+              component="a"
+              href="/event-register"
+              onClick={handleMenuClose}
+            >
+              Criar Eventos
+            </MenuItem>
             <MenuItem component="a" href="/login" onClick={handleMenuClose}>
               Login
             </MenuItem>

@@ -2,12 +2,10 @@ import * as React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { object, string, number } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import EventIcon from "@mui/icons-material/Event";
@@ -23,6 +21,7 @@ const eventSchema = object({
   date: string().required("Data do evento é obrigatória"),
   time: string().required("Horário do evento é obrigatório"),
   description: string().required("Descrição é obrigatória"),
+  imageUrl: string().required("Imagem é obrigatória"),
 });
 
 type IEvent = {
@@ -32,6 +31,7 @@ type IEvent = {
   date: string;
   time: string;
   description: string;
+  imageUrl: string;
 };
 
 export default function EventForm() {
@@ -42,6 +42,7 @@ export default function EventForm() {
     date: "",
     time: "",
     description: "",
+    imageUrl: "",
   };
 
   const methods = useForm<IEvent>({
@@ -57,9 +58,10 @@ export default function EventForm() {
         date: new Date(`${values.date} ${values.time}`).toISOString(),
         location: values.location,
         description: values.description,
+        imageUrl: values.imageUrl,
       };
       console.log(body, "bodybody");
-      const response = await fetch("http://localhost:3333/events", {
+      await fetch("http://localhost:3333/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,8 +69,7 @@ export default function EventForm() {
         body: JSON.stringify(body),
       });
 
-      console.log(response, "responseresponse");
-      // TODO redirect page success
+      window.location.replace("http://localhost:3000/success");
     } catch (error) {
       console.error(error);
     }
@@ -195,6 +196,26 @@ export default function EventForm() {
                       label="Horário do Evento"
                       type="time"
                       InputLabelProps={{ shrink: true }}
+                      error={!!fieldState.error}
+                      helperText={
+                        fieldState.error ? fieldState.error.message : ""
+                      }
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  control={methods.control}
+                  name="imageUrl"
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      {...field}
+                      autoComplete="off"
+                      required
+                      fullWidth
+                      label="Url da imagem"
+                      autoFocus
                       error={!!fieldState.error}
                       helperText={
                         fieldState.error ? fieldState.error.message : ""
